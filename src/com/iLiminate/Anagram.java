@@ -6,6 +6,7 @@
 
 package com.iLiminate;
 
+import com.iLiminate.lib.WordLibrary;
 import com.iLiminate.ui.Interface;
 import javax.swing.SwingUtilities;
 
@@ -22,6 +23,7 @@ public class Anagram {
             SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Interface().setVisible(true);
+                WordLibrary.allToLowercase();
             }
         });
     }

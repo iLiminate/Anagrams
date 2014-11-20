@@ -7,7 +7,6 @@
 package com.iLiminate.ui;
 
 import com.iLiminate.lib.WordLibrary;
-import java.lang.reflect.Array;
 import java.util.Random;
 import javax.swing.JList;
 import javax.swing.ListModel;
@@ -24,29 +23,32 @@ public class addWords extends javax.swing.JFrame {
     public addWords() {
         initComponents();
     }
-
+    
+    
     public static void getWords(JList list) {
         String[] words = WordLibrary.WORD_LIST;
-        for (String o : words ){o.toLowerCase();} //Put all characters to lowercase to ruin those cheaters
-        JList<String> wordList = new JList<>(words);
-        ListModel<String> modelList = wordList.getModel();
+        for (String o : words ){o = o.toLowerCase();}
+        JList<String> word = new JList<>(words);
+        ListModel<String> modelList = word.getModel();
         list.setModel(modelList);
     }
     
     public static String scrambleWord(String word) {
         String newWord = word;
-        boolean last = false; 
-        for (int i=1; i!=20; i++){
-            if(i % 1 == 0){ last = true;} else{ last = false;};
+        boolean last = false;
+        for (int i=1; i<21; i++){
+            last = !last;
             Random rand = new Random();
-            int randVal = rand.nextInt((word.length() - 1) + 1) + 1;
-            String part1 = newWord.substring(randVal);
-            String part2 = newWord.substring(0, randVal);
-            newWord = (last = true) ? (part1.concat(part2)) : (part2.concat(part1));
-            System.out.println(last);
+            Double rando = rand.nextDouble();
+            int splitNum = word.length()/3;
+            String part1 = newWord.substring(splitNum,splitNum*2);
+            String part2 = newWord.substring(0, splitNum);
+            String part3 = newWord.substring(splitNum*2,(splitNum*3)+(word.length()%3));
+            String nextWord = (last == true) ? (part1.concat(part2)) : (part2.concat(part1));
+            newWord = (rando > 0.5) ? nextWord.concat(part3) : part3.concat(nextWord);
         }
-        System.out.println(newWord);
-        return "";
+        if (newWord.matches(word)){newWord = addWords.scrambleWord(word); System.out.println("Wow, scramble failed, my bad.");}
+        return newWord;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,10 +70,11 @@ public class addWords extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add words");
         setMinimumSize(new java.awt.Dimension(410, 310));
         setPreferredSize(new java.awt.Dimension(410, 310));
+        setResizable(false);
 
         wordList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         wordList.setVisibleRowCount(7);
@@ -90,6 +93,11 @@ public class addWords extends javax.swing.JFrame {
         });
 
         editBtn.setText("Edit");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Remove");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,6 +110,11 @@ public class addWords extends javax.swing.JFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -167,7 +180,6 @@ public class addWords extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         //Refresh
-        addWords.scrambleWord("RandomWord");
         addWords.getWords(addWords.wordList);
     }//GEN-LAST:event_jButton3MouseClicked
 
@@ -175,6 +187,20 @@ public class addWords extends javax.swing.JFrame {
         // Remove
         WordLibrary.removeWordFromLibrary(WordLibrary.WORD_LIST,(String) wordList.getSelectedValue());
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        if (wordList.getSelectedValue() != null){
+            new editWord().setVisible(true);
+            editWord.setWord(wordList.getSelectedValue().toString());
+        }else{
+            outputLabel.setText("Error: Select a word in the list.");
+            
+        }
+    }//GEN-LAST:event_editBtnActionPerformed
     
     /**
      * @param args the command line arguments
