@@ -90,33 +90,45 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="guessButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
-                      <Component id="wordHolder" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                      <Component id="newWordButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="streakHolderLabel" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <Component id="wordHolder" pref="305" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="scrambledWord" max="32767" attributes="0"/>
+                          <Component id="yourGuess" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="streakLabel" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="outputLabel" min="-2" pref="454" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="scrambledWord" max="32767" attributes="0"/>
-                          <Component id="yourGuess" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="longStreakLabel" min="-2" pref="126" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="longStreakHolderLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace pref="560" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,36 +148,46 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="outputLabel" pref="29" max="32767" attributes="0"/>
-                  <Component id="streakLabel" max="32767" attributes="0"/>
+                  <Component id="streakHolderLabel" min="-2" pref="0" max="-2" attributes="0"/>
+                  <Component id="streakLabel" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="longStreakLabel" min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="wordHolder" min="-2" pref="0" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="newWordButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="guessButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                  <Component id="longStreakHolderLabel" min="-2" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace pref="121" max="32767" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="newWordButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="New Word"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newWordButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="guessButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guess"/>
         <Property name="name" type="java.lang.String" value="guessButton" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guessButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="outputLabel">
@@ -194,6 +216,9 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="yourGuess">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yourGuessActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="wordHolder">
       <Properties>
@@ -207,6 +232,21 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="streakLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Streak: 0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="longStreakLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Longest streak: 0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="streakHolderLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Streak: 0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="longStreakHolderLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Streak: 0"/>
       </Properties>

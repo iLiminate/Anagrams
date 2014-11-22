@@ -6,6 +6,9 @@
 
 package com.iLiminate.ui;
 
+import com.iLiminate.lib.WordLibrary;
+import static com.iLiminate.ui.addWords.wordList;
+
 /**
  *
  * @author iLiminate
@@ -35,6 +38,7 @@ public class editWord extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         okBtn = new javax.swing.JButton();
+        outputLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit word");
@@ -61,7 +65,8 @@ public class editWord extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 335, Short.MAX_VALUE)
+                        .addComponent(outputLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(okBtn)))
                 .addContainerGap())
         );
@@ -73,7 +78,9 @@ public class editWord extends javax.swing.JFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okBtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(okBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(outputLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -83,7 +90,14 @@ public class editWord extends javax.swing.JFrame {
 
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+
+        String newWord = jTextField1.getText();
+        if (WordLibrary.editWordInLibrary(WordLibrary.WORD_LIST,wordList.getSelectedIndex(),newWord)){
+            addWords.getWords(addWords.wordList);
+            this.dispose();
+        }else{
+            outputLabel.setText("Error: Invalid character. Please use letters only.");
+        }
     }//GEN-LAST:event_okBtnActionPerformed
 
     /**
@@ -102,13 +116,7 @@ public class editWord extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(editWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(editWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(editWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(editWord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -126,5 +134,6 @@ public class editWord extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private static javax.swing.JTextField jTextField1;
     private javax.swing.JButton okBtn;
+    private javax.swing.JLabel outputLabel;
     // End of variables declaration//GEN-END:variables
 }

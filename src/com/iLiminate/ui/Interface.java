@@ -14,12 +14,17 @@ import static com.iLiminate.lib.WordLibrary.allToLowercase;
  * @author iLiminate
  */
 public class Interface extends javax.swing.JFrame {
-
+    public int longStreak = 0;
+    public int streak = 0;
     /**
      * Creates new form JFrame
      */
     public Interface() {
         initComponents();
+        String originalWord = WordLibrary.getRandomWord(WordLibrary.WORD_LIST);
+        wordHolder.setText(originalWord);
+        scrambledWord.setText(addWords.scrambleWord(originalWord));
+        
     }
     
     /**
@@ -32,8 +37,8 @@ public class Interface extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        newWordButton = new javax.swing.JButton();
+        guessButton = new javax.swing.JButton();
         outputLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -41,6 +46,9 @@ public class Interface extends javax.swing.JFrame {
         yourGuess = new javax.swing.JTextField();
         wordHolder = new javax.swing.JLabel();
         streakLabel = new javax.swing.JLabel();
+        longStreakLabel = new javax.swing.JLabel();
+        streakHolderLabel = new javax.swing.JLabel();
+        longStreakHolderLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,18 +73,18 @@ public class Interface extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jButton1.setText("New Word");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        newWordButton.setText("New Word");
+        newWordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                newWordButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guess");
-        jButton2.setName("guessButton"); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        guessButton.setText("Guess");
+        guessButton.setName("guessButton"); // NOI18N
+        guessButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                guessButtonActionPerformed(evt);
             }
         });
 
@@ -90,11 +98,23 @@ public class Interface extends javax.swing.JFrame {
 
         scrambledWord.setEditable(false);
 
+        yourGuess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yourGuessActionPerformed(evt);
+            }
+        });
+
         wordHolder.setText("ADFASDFHASJDFAHJFAHSDFKHASDKFAHKDFHASDFHKASDHF");
         wordHolder.setMaximumSize(new java.awt.Dimension(299, 0));
         wordHolder.setMinimumSize(new java.awt.Dimension(299, 0));
 
         streakLabel.setText("Streak: 0");
+
+        longStreakLabel.setText("Longest streak: 0");
+
+        streakHolderLabel.setText("Streak: 0");
+
+        longStreakHolderLabel.setText("Streak: 0");
 
         jMenu1.setText("File");
 
@@ -136,26 +156,35 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(guessButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(wordHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(170, 170, 170))
+                        .addComponent(newWordButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(streakHolderLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(wordHolder, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                .addGap(170, 170, 170))
+                            .addComponent(scrambledWord)
+                            .addComponent(yourGuess)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(streakLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(outputLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(scrambledWord)
-                            .addComponent(yourGuess))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(longStreakLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addComponent(longStreakHolderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(560, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,36 +200,48 @@ public class Interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(outputLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(streakHolderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(streakLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(longStreakLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wordHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(newWordButton)
+                    .addComponent(guessButton))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(107, 107, 107)
+                    .addComponent(longStreakHolderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(121, Short.MAX_VALUE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public int streak = 0;
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    
+    private void guessButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guessButtonActionPerformed
        String originalText = wordHolder.getText();
        if(originalText.matches(yourGuess.getText())){
            outputLabel.setText("Outcome: Congratulations, you guessed correctly.");
            streak = streak + 1;
-           streakLabel.setText("Streak: " + streak);
+           doLongStreak();
+           streakHolderLabel.setText(""+(streak-1));
+           streakLabel.setText("Streak: " + ((Integer.valueOf(streakHolderLabel.getText()))+1));
        }else{ 
            outputLabel.setText("Outcome: Sorry, you guessed incorrectly.");
+           doLongStreak();
            streak = 0;
-           streakLabel.setText("Streak: " + streak);
+           streakHolderLabel.setText(""+(streak-1));
+           streakLabel.setText("Streak: " + ((Integer.valueOf(streakHolderLabel.getText()))+1));
        }
        String originalWord = WordLibrary.getRandomWord(WordLibrary.WORD_LIST);
        wordHolder.setText(originalWord);
        scrambledWord.setText(addWords.scrambleWord(originalWord));
        yourGuess.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_guessButtonActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         System.exit(0);
@@ -215,14 +256,19 @@ public class Interface extends javax.swing.JFrame {
         addWords.getWords(addWords.wordList);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void newWordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newWordButtonActionPerformed
         streak = 0;
-        streakLabel.setText("Streak: " + streak);
+        streakHolderLabel.setText(""+(streak-1));
+        streakLabel.setText("Streak: " + ((Integer.valueOf(streakHolderLabel.getText()))+1));
         outputLabel.setText("Outcome: Sorry, you skipped a word, your streak was reset.");
         String originalWord = WordLibrary.getRandomWord(WordLibrary.WORD_LIST);
         wordHolder.setText(originalWord);
         scrambledWord.setText(addWords.scrambleWord(originalWord));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_newWordButtonActionPerformed
+
+    private void yourGuessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yourGuessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_yourGuessActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,13 +286,7 @@ public class Interface extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -264,8 +304,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton guessButton;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -274,10 +313,20 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JLabel longStreakHolderLabel;
+    private javax.swing.JLabel longStreakLabel;
+    private javax.swing.JButton newWordButton;
     private javax.swing.JLabel outputLabel;
     private static javax.swing.JTextField scrambledWord;
+    private javax.swing.JLabel streakHolderLabel;
     private javax.swing.JLabel streakLabel;
     private javax.swing.JLabel wordHolder;
     private javax.swing.JTextField yourGuess;
     // End of variables declaration//GEN-END:variables
+
+    private void doLongStreak() {
+        longStreak = (streak > longStreak) ? (longStreak = streak):(longStreak = longStreak);
+        longStreakHolderLabel.setText(""+(longStreak-1));
+        longStreakLabel.setText("Streak: " + ((Integer.valueOf(longStreakHolderLabel.getText()))+1));
+    }
 }
